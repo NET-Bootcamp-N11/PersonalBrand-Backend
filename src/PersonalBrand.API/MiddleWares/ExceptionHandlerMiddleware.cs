@@ -1,4 +1,4 @@
-﻿using PersonalBrand.Domain.Entities;
+using PersonalBrand.Domain.Entities;
 
 namespace PersonalBrand.API.MiddleWares
 {
@@ -31,3 +31,4 @@ namespace PersonalBrand.API.MiddleWares
         }
     }
 }
+
