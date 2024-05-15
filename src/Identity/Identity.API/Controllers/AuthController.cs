@@ -25,7 +25,7 @@ namespace Identity.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(new ResponceModel()
+                return BadRequest(new ResponseModel()
                 {
                     IsSuccess = false,
                     Message = "Invalid model state",
@@ -46,7 +46,7 @@ namespace Identity.API.Controllers
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(e => e.Description);
-                return BadRequest(new ResponceModel()
+                return BadRequest(new ResponseModel()
                 {
                     IsSuccess = false,
                     Message = "Failed to create user",
@@ -57,7 +57,7 @@ namespace Identity.API.Controllers
 
             await _userManager.AddToRoleAsync(user, "User");
 
-            return Ok(new ResponceModel()
+            return Ok(new ResponseModel()
             {
                 IsSuccess = true,
                 Message = "User created successfully",

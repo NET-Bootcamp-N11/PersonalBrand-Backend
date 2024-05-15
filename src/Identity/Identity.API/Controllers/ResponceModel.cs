@@ -2,7 +2,7 @@
 
 namespace Identity.API.Controllers
 {
-    internal class ResponceModel : ModelStateDictionary
+    internal class ResponseModel
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
