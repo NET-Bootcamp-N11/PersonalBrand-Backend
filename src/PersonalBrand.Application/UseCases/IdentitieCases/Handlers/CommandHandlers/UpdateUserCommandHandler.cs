@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using PersonalBrand.Application.UseCases.IdentitieCases.Commands;
-using PersonalBrand.Domain.Entities;
+using PersonalBrand.Domain.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

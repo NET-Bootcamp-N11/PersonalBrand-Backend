@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PersonalBrand.Domain.Entities.DTOs
-
+namespace PersonalBrand.Domain.Entities.Models
 {
-    public class Login
+    public class BlogPost
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string Message { get; set; }
     }
 }

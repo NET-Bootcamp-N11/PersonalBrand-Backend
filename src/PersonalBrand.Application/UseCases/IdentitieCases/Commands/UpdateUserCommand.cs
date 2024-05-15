@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PersonalBrand.Domain.Entities;
+using PersonalBrand.Domain.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
