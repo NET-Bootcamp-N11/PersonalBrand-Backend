@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PersonalBrand.Application.Abstractions;
-using PersonalBrand.Domain.DTOs;
-using PersonalBrand.Domain.Entities;
+using PersonalBrand.Domain.Entities.DTOs;
+using PersonalBrand.Domain.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +19,6 @@ namespace PersonalBrand.Infrastructure.Persistance
         }
 
         public DbSet<Login> TestLoginTable { get; set; }
+        
     }
 }
