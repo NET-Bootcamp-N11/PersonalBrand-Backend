@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IdentityModel\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PersonalBrand.Application\PersonalBrand.Application.csproj" />
     <ProjectReference Include="..\PersonalBrand.Domain\PersonalBrand.Domain.csproj" />
   </ItemGroup>
