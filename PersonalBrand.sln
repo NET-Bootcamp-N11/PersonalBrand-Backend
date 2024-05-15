@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBrand.Domain", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalBrand.Infrastructure", "src\PersonalBrand.Infrastructure\PersonalBrand.Infrastructure.csproj", "{919E565D-CBC6-49FD-845F-53982F29D1ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{1C2CB36C-0E05-4F18-9338-2399FD732424}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "src\Identity\Identity.API\Identity.API.csproj", "{1CE89F00-CAEA-4CFF-92A4-EAA4245DF305}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +37,16 @@ Global
 		{919E565D-CBC6-49FD-845F-53982F29D1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{919E565D-CBC6-49FD-845F-53982F29D1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{919E565D-CBC6-49FD-845F-53982F29D1ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE89F00-CAEA-4CFF-92A4-EAA4245DF305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE89F00-CAEA-4CFF-92A4-EAA4245DF305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE89F00-CAEA-4CFF-92A4-EAA4245DF305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE89F00-CAEA-4CFF-92A4-EAA4245DF305}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1CE89F00-CAEA-4CFF-92A4-EAA4245DF305} = {1C2CB36C-0E05-4F18-9338-2399FD732424}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2C44EA2B-7376-4011-9502-B317BF62E3BA}
