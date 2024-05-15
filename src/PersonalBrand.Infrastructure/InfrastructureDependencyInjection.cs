@@ -22,6 +22,7 @@ namespace PersonalBrand.Infrastructure
             });
 
             return services;
+
         }
     }
 }
