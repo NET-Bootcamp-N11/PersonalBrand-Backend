@@ -8,7 +8,7 @@ namespace PersonalBrand.Domain.Entities.Models
 {
     public class Comments
     {
-        public Guid Comments_Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Message { get; set; }
         public DateTimeOffset Date { get; set; } = DateTimeOffset.UtcNow;
         public virtual UserModel User { get; set; }
