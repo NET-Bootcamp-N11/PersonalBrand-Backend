@@ -1,9 +1,10 @@
 ﻿using Identity.API.Models;
 using Identity.API.Services.AuthService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PersonalBrand.Domain.Entities;
+using PersonalBrand.Domain.Entities.Models;
 
 namespace Identity.API.Controllers
 {
@@ -12,15 +13,17 @@ namespace Identity.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<UserModel> _userManager;
+        private readonly SignInManager<UserModel> _signInManager;
         private readonly IAuthService _authService;
 
-        public AuthController(UserManager<UserModel> userManager, IAuthService authService)
+        public AuthController(UserManager<UserModel> userManager, SignInManager<UserModel> signInManager, IAuthService authService)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _authService = authService;
         }
 
-        [HttpPost]
+        [HttpPost("Registration")]
         public async Task<IActionResult> Register(Register register)
         {
             if (!ModelState.IsValid)
@@ -65,7 +68,7 @@ namespace Identity.API.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(Login login)
         {
             if (!ModelState.IsValid)
@@ -107,6 +110,43 @@ namespace Identity.API.Controllers
                 token = token,
                 isSuccess = true,
                 Message = $"Login successful You id {user.Id}"
+            });
+        }
+
+        [HttpPost("ExternalLogin")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLogin(ExternalLogin model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+            {
+                user = new UserModel()
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    PhotoUrl = model.PhotoUrl,
+                };
+
+                var res = await _userManager.CreateAsync(user);
+
+                var result = await _userManager.AddToRoleAsync(user, "User");
+            }
+
+            var info = new UserLoginInfo(model.Provider, model.ProviderKey, user.UserName);
+
+            await _userManager.AddLoginAsync(user, info);
+
+            await _signInManager.SignInAsync(user, false);
+
+            var token = _authService.GenerateToken(user);
+
+            return Ok(new Token()
+            {
+                token = token,
+                isSuccess = true,
+                Message = "Success"
             });
         }
     }

@@ -1,4 +1,5 @@
-﻿using PersonalBrand.Domain.Entities;
+﻿
+using PersonalBrand.Domain.Entities.Models;
 
 namespace Identity.API.Services.AuthService
 {

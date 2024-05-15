@@ -25,6 +25,7 @@ namespace PersonalBrand.Application.UseCases.IdentitieCases.Handlers.CommandHand
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
+                PhotoUrl = request.PhotoUrl,
                 Email = request.Email,
                 UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber,
