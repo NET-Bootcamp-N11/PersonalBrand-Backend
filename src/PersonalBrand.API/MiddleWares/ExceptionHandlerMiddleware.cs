@@ -31,5 +31,5 @@ namespace PersonalBrand.API.MiddleWares
         }
     }
 
-    }
 }
+
