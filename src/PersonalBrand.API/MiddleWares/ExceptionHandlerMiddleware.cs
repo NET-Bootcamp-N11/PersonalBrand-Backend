@@ -19,9 +19,9 @@ namespace PersonalBrand.API.MiddleWares
             }
             catch (Exception e)
             {
-
                 context.Response.StatusCode = 500;
                 _logger.LogError($"{e}\n\n\n");
+
                 await context.Response.WriteAsJsonAsync(new ResponseModel()
                 {
                     StatusCode = 500,
@@ -29,7 +29,5 @@ namespace PersonalBrand.API.MiddleWares
                 });
             }
         }
-    }
-
     }
 }
