@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PersonalBrand.Domain.Entities.DTOs
+
 {
     public class Login
     {
