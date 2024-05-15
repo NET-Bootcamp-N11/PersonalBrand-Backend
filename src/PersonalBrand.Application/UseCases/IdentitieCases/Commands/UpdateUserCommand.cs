@@ -10,6 +10,7 @@ namespace PersonalBrand.Application.UseCases.IdentitieCases.Commands
 {
     public class UpdateUserCommand : IRequest<ResponseModel>
     {
+        public Guid id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
