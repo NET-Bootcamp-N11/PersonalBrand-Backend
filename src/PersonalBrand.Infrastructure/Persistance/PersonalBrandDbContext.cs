@@ -17,7 +17,6 @@ namespace PersonalBrand.Infrastructure.Persistance
         {
             
         }
-
         public DbSet<Login> TestLoginTable { get; set; }
     }
 }
