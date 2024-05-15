@@ -19,6 +19,7 @@ namespace PersonalBrand.Infrastructure.Persistance
         }
 
         public DbSet<Login> TestLoginTable { get; set; }
-        
+        public DbSet<Comments> Comments { get; set; }
+        public DbSet<Blog> Posts { get; set; }
     }
 }
