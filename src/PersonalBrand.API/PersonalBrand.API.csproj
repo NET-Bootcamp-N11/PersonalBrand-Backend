@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Identity\Identity.API\Identity.API.csproj" />
     <ProjectReference Include="..\PersonalBrand.Application\PersonalBrand.Application.csproj" />
     <ProjectReference Include="..\PersonalBrand.Infrastructure\PersonalBrand.Infrastructure.csproj" />
   </ItemGroup>

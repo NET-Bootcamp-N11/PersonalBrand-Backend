@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using PersonalBrand.Application.Abstractions;
-using PersonalBrand.Domain.Entities;
+using PersonalBrand.Domain.Entities.Models;
 using PersonalBrand.Infrastructure.Persistance;
 
 namespace PersonalBrand.API.PersonalIdentity

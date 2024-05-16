@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using PersonalBrand.Application.UseCases.IdentitieCases.Commands;
-using PersonalBrand.Domain.Entities;
+using PersonalBrand.Domain.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +27,7 @@ namespace PersonalBrand.Application.UseCases.IdentitieCases.Handlers.CommandHand
             {
                 user.FirstName = request.FirstName;
                 user.LastName = request.LastName;
+                user.PhotoUrl = request.PhotoUrl;
                 user.Email = request.Email;
                 user.PhoneNumber = request.PhoneNumber;
                 user.UserName = request.UserName;

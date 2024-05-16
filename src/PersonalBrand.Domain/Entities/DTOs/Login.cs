@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PersonalBrand.Domain.DTOs
+namespace PersonalBrand.Domain.Entities.DTOs
+
 {
     public class Login
     {
