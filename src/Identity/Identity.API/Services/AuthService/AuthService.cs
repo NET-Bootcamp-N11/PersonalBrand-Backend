@@ -9,17 +9,9 @@ using System.Text;
 
 namespace Identity.API.Services.AuthService
 {
-    public class AuthService : IAuthService
+    public static class JWTTokenExtensions
     {
-        private IConfiguration _config;
-        private readonly UserManager<UserModel> _userManager;
-        public AuthService(IConfiguration config, RoleManager<IdentityRole> roleManager, UserManager<UserModel> userManager)
-        {
-            _config = config;
-            _userManager = userManager;
-        }
-
-        public string GenerateToken(UserModel user)
+        public static string GenerateToken(this UserModel user, IConfiguration _config, UserManager<UserModel> _userManager)
         {
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWTSettings:Secret"]!));
             SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

@@ -12,15 +12,15 @@ namespace Identity.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
         private readonly UserManager<UserModel> _userManager;
         private readonly SignInManager<UserModel> _signInManager;
-        private readonly IAuthService _authService;
 
-        public AuthController(UserManager<UserModel> userManager, SignInManager<UserModel> signInManager, IAuthService authService)
+        public AuthController(IConfiguration configuration, UserManager<UserModel> userManager, SignInManager<UserModel> signInManager)
         {
+            _configuration = configuration;
             _userManager = userManager;
             _signInManager = signInManager;
-            _authService = authService;
         }
 
         [HttpPost("Registration")]
@@ -38,10 +38,10 @@ namespace Identity.API.Controllers
 
             var user = new UserModel()
             {
+                UserName = register.UserName,
                 FirstName = register.FirstName,
-                Email = register.Email,
                 LastName = register.LastName,
-               
+                Email = register.Email,
             };
 
             var result = await _userManager.CreateAsync(user, register.Password);
@@ -58,7 +58,7 @@ namespace Identity.API.Controllers
                 });
             }
 
-            await _userManager.AddToRoleAsync(user, "User");
+            //await _userManager.AddToRoleAsync(user, "User");
 
             return Ok(new ResponseModel()
             {
@@ -103,13 +103,13 @@ namespace Identity.API.Controllers
                 });
             }
 
-            var token = _authService.GenerateToken(user);
+            var token = user.GenerateToken(_configuration, _userManager);
 
             return Ok(new Token()
             {
                 token = token,
                 isSuccess = true,
-                Message = $"Login successful You id {user.Id}"
+                Message = $"Login successfully! Your id is {user.Id}"
             });
         }
 
@@ -131,7 +131,7 @@ namespace Identity.API.Controllers
 
                 var res = await _userManager.CreateAsync(user);
 
-                var result = await _userManager.AddToRoleAsync(user, "User");
+                //var result = await _userManager.AddToRoleAsync(user, "User");
             }
 
             var info = new UserLoginInfo(model.Provider, model.ProviderKey, user.UserName);
@@ -140,7 +140,7 @@ namespace Identity.API.Controllers
 
             await _signInManager.SignInAsync(user, false);
 
-            var token = _authService.GenerateToken(user);
+            var token = user.GenerateToken(_configuration, _userManager);
 
             return Ok(new Token()
             {

@@ -1,4 +1,12 @@
 
+using Identity.API.Services.AuthService;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using PersonalBrand.Application.Abstractions;
+using PersonalBrand.Domain.Entities.Models;
+using PersonalBrand.Infrastructure.Persistance;
+
 namespace Identity.API
 {
     public class Program
@@ -16,6 +24,16 @@ namespace Identity.API
                           .AllowAnyMethod();
                 });
             });
+
+            builder.Services.AddDbContext<IPersonalBrandDbContext, PersonalBrandDbContext>(options =>
+            {
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            builder.Services.AddIdentity<UserModel, IdentityRole>()
+                    .AddEntityFrameworkStores<PersonalBrandDbContext>()
+                    .AddDefaultTokenProviders();
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
