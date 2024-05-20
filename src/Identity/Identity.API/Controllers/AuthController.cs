@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PersonalBrand.Domain.Entities.DTOs;
 using PersonalBrand.Domain.Entities.Models;
 
 namespace Identity.API.Controllers
@@ -36,6 +37,18 @@ namespace Identity.API.Controllers
                 });
             }
 
+            var existingUser = await _userManager.FindByEmailAsync(register.Email);
+
+            if (existingUser != null)
+            {
+                return BadRequest(new ResponseModel()
+                {
+                    IsSuccess = false,
+                    Message = "This email is already registred!",
+                    StatusCode = 400,
+                });
+            }
+
             var user = new UserModel()
             {
                 UserName = register.UserName,
@@ -58,7 +71,7 @@ namespace Identity.API.Controllers
                 });
             }
 
-            //await _userManager.AddToRoleAsync(user, "User");
+            await _userManager.AddToRoleAsync(user, "User");
 
             return Ok(new ResponseModel()
             {
@@ -69,7 +82,7 @@ namespace Identity.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(Login login)
+        public async Task<IActionResult> Login(Models.Login login)
         {
             if (!ModelState.IsValid)
             {
@@ -103,7 +116,7 @@ namespace Identity.API.Controllers
                 });
             }
 
-            var token = user.GenerateToken(_configuration, _userManager);
+            var token = user.GenerateToken(_configuration, _userManager).Result;
 
             return Ok(new Token()
             {
@@ -131,7 +144,7 @@ namespace Identity.API.Controllers
 
                 var res = await _userManager.CreateAsync(user);
 
-                //var result = await _userManager.AddToRoleAsync(user, "User");
+                var result = await _userManager.AddToRoleAsync(user, "User");
             }
 
             var info = new UserLoginInfo(model.Provider, model.ProviderKey, user.UserName);
@@ -140,7 +153,7 @@ namespace Identity.API.Controllers
 
             await _signInManager.SignInAsync(user, false);
 
-            var token = user.GenerateToken(_configuration, _userManager);
+            var token = user.GenerateToken(_configuration, _userManager).Result;
 
             return Ok(new Token()
             {

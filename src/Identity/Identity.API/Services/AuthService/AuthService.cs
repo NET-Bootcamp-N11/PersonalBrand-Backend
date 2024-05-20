@@ -11,12 +11,22 @@ namespace Identity.API.Services.AuthService
 {
     public static class JWTTokenExtensions
     {
-        public static string GenerateToken(this UserModel user, IConfiguration _config, UserManager<UserModel> _userManager)
+        public static async Task<string> GenerateToken(this UserModel user, IConfiguration _config, UserManager<UserModel> _userManager)
         {
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWTSettings:Secret"]!));
             SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             int expirePeriod = int.Parse(_config["JWTSettings:Expire"]!);
-            var roleName = _userManager.GetRolesAsync(user).Result[0];
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            // Ensure there's at least one role assigned to the user
+            if (roles == null || roles.Count == 0)
+            {
+                throw new InvalidOperationException("User has no roles assigned.");
+            }
+
+            var roleName = roles[0];
+
             List<Claim> claims = new List<Claim>()
                 {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -24,7 +34,7 @@ namespace Identity.API.Services.AuthService
                     new Claim("UserId",user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.FirstName!),
                     new Claim(ClaimTypes.Surname, user.LastName!),
-                    new Claim("Role",roleName)
+                    new Claim("Role", roleName)
                 };
 
 
