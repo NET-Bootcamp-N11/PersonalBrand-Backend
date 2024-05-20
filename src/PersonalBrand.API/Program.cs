@@ -34,6 +34,7 @@ namespace PersonalBrand.API
             builder.Services.AddIdentity();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddMemoryCache();
 
             var app = builder.Build();
 
