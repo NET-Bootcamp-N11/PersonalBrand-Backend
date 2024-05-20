@@ -13,10 +13,16 @@ namespace PersonalBrand.Application.UseCases.IdentitieCases.Handlers.CommandHand
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ResponseModel>
     {
         private readonly UserManager<UserModel> _manager;
+        private IMediator @object;
 
         public CreateUserCommandHandler(UserManager<UserModel> manager)
         {
             _manager = manager;
+        }
+
+        public CreateUserCommandHandler(IMediator @object)
+        {
+            this.@object = @object;
         }
 
         public async Task<ResponseModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
