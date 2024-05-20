@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
 using PersonalBrand.Application.UseCases.IdentitieCases.Queries;
 using PersonalBrand.Domain.Entities.Models;
 using System;
@@ -14,17 +15,24 @@ namespace PersonalBrand.Application.UseCases.IdentitieCases.Handlers.QueryHandle
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<UserModel>>
     {
         private readonly UserManager<UserModel> _userManager;
+        private readonly IMemoryCache _memoryCache;
 
-        public GetAllUsersQueryHandler(UserManager<UserModel> userManager)
+        public GetAllUsersQueryHandler(UserManager<UserModel> userManager, IMemoryCache memoryCache)
         {
             _userManager = userManager;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IEnumerable<UserModel>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var users =  _userManager.Users.ToImmutableList();
+            object userModel = _memoryCache.Get("users");
+            if (userModel == null)
+            {
+                ImmutableList<UserModel>? userModel1 = _userManager.Users.ToImmutableList();
+                _memoryCache.Set("users", userModel1);
+            }
 
-            return users;
+            return userModel as IEnumerable<UserModel>;
         }
     }
 }
