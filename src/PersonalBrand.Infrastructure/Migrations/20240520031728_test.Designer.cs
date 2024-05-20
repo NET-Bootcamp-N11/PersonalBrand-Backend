@@ -12,7 +12,7 @@ using PersonalBrand.Infrastructure.Persistance;
 namespace PersonalBrand.Infrastructure.Migrations
 {
     [DbContext(typeof(PersonalBrandDbContext))]
-    [Migration("20240518182617_test")]
+    [Migration("20240520031728_test")]
     partial class test
     {
         /// <inheritdoc />
